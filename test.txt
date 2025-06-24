@@ -1,0 +1,56 @@
+QUERY	basic	=	<	apple	banana	|	orange	>;	
+QUERY	advanced	=	<filetype:pdf	apple	+fruit	-tree	>;	
+RESULT_OF_QUERY	temp;	
+RESULT_OF_QUERY	res;	
+FOR	item	IN	[basic,	advanced]	BEGIN	
+temp	=	EXEC	item;	
+res	=	res	--	item;	
+END	
+/*QUERY simple = < apple banana >;*/
+
+
+/*QUERY listQ = [ <a>, <b|c> ];
+RESULT_OF_QUERY out;*/
+
+/*EXEC simple;
+temp = EXEC simple;*/
+
+/*QUERY q1 = < x >;
+QUERY q2 = < y >;
+FOR item IN [ q1, q2 ] BEGIN
+  EXEC item;
+END*/
+
+/*RESULT_OF_QUERY r;
+QUERY u = < test >;
+IF EMPTY(r) BEGIN
+  EXEC u;
+END
+IF URL_EXISTS(r, "http://ex\\\"mpl.com") BEGIN
+  EXEC u;
+END*/
+
+
+/*QUERY A = < a >;
+QUERY B = < b >;
+RESULT_OF_QUERY R;
+R = R ++ A;
+R = R -- B;
+temp = R ** A;*/
+
+
+//QUERY mix = < +must -not *negate a b|c d >;
+
+
+//QUERY bad1 = < apple >
+
+
+/*FOR u IN [ <a b>, customQuery, <c|d> ] BEGIN
+  EXEC u;
+END*/
+
+
+
+/*
+Ovo je multiline comment
+*/

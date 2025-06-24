@@ -1,0 +1,853 @@
+Grammar
+
+    0 $accept: program $end
+
+    1 program: declarations commands
+
+    2 declarations: /* empty */
+    3             | declarations declaration
+
+    4 declaration: QUERY WORD EQ query SC
+    5            | QUERY WORD EQ list_of_queries SC
+    6            | RESULT_OF_QUERY WORD SC
+
+    7 commands: /* empty */
+    8         | commands command
+
+    9 command: EXEC WORD SC
+   10        | IF condition KW_BEGIN commands KW_END
+   11        | FOR WORD IN list_of_queries KW_BEGIN commands KW_END
+   12        | assign_command SC
+
+   13 assign_command: WORD EQ EXEC WORD
+   14               | WORD EQ WORD set_operator WORD
+
+   15 condition: EMPTY LPR WORD RPR
+   16          | NOT_EMPTY LPR WORD RPR
+   17          | URL_EXISTS LPR WORD COMMA STRING RPR
+
+   18 list_of_queries: LBR list_items RBR
+
+   19 list_items: list_item
+   20           | list_items COMMA list_item
+
+   21 list_item: query
+   22          | WORD
+
+   23 query: LT terms GT
+
+   24 terms: term
+   25      | terms term
+
+   26 term: WORD
+   27     | STRING
+   28     | directive
+   29     | PLUS term
+   30     | MINUS term
+   31     | STAR term
+   32     | term PIPE term
+
+   33 directive: WORD COLON WORD
+   34          | WORD COLON STRING
+
+   35 set_operator: UNION
+   36             | DIFF
+   37             | INTER
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+WORD (258) 4 5 6 9 11 13 14 15 16 17 22 26 33 34
+STRING (259) 17 27 34
+QUERY (260) 4 5
+RESULT_OF_QUERY (261) 6
+EXEC (262) 9 13
+IF (263) 10
+FOR (264) 11
+IN (265) 11
+KW_BEGIN (266) 10 11
+KW_END (267) 10 11
+EMPTY (268) 15
+NOT_EMPTY (269) 16
+URL_EXISTS (270) 17
+UNION (271) 35
+DIFF (272) 36
+INTER (273) 37
+PLUS (274) 29
+MINUS (275) 30
+STAR (276) 31
+PIPE (277) 32
+LT (278) 23
+GT (279) 23
+LBR (280) 18
+RBR (281) 18
+LPR (282) 15 16 17
+RPR (283) 15 16 17
+COMMA (284) 17 20
+SC (285) 4 5 6 9 12
+EQ (286) 4 5 13 14
+COLON (287) 33 34
+
+
+Nonterminals, with rules where they appear
+
+$accept (33)
+    on left: 0
+program (34)
+    on left: 1, on right: 0
+declarations (35)
+    on left: 2 3, on right: 1 3
+declaration (36)
+    on left: 4 5 6, on right: 3
+commands (37)
+    on left: 7 8, on right: 1 8 10 11
+command (38)
+    on left: 9 10 11 12, on right: 8
+assign_command (39)
+    on left: 13 14, on right: 12
+condition (40)
+    on left: 15 16 17, on right: 10
+list_of_queries (41)
+    on left: 18, on right: 5 11
+list_items (42)
+    on left: 19 20, on right: 18 20
+list_item (43)
+    on left: 21 22, on right: 19 20
+query (44)
+    on left: 23, on right: 4 21
+terms (45)
+    on left: 24 25, on right: 23 25
+term (46)
+    on left: 26 27 28 29 30 31 32, on right: 24 25 29 30 31 32
+directive (47)
+    on left: 33 34, on right: 28
+set_operator (48)
+    on left: 35 36 37, on right: 14
+
+
+state 0
+
+    0 $accept: . program $end
+
+    $default  reduce using rule 2 (declarations)
+
+    program       go to state 1
+    declarations  go to state 2
+
+
+state 1
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 3
+
+
+state 2
+
+    1 program: declarations . commands
+    3 declarations: declarations . declaration
+
+    QUERY            shift, and go to state 4
+    RESULT_OF_QUERY  shift, and go to state 5
+
+    $default  reduce using rule 7 (commands)
+
+    declaration  go to state 6
+    commands     go to state 7
+
+
+state 3
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 4
+
+    4 declaration: QUERY . WORD EQ query SC
+    5            | QUERY . WORD EQ list_of_queries SC
+
+    WORD  shift, and go to state 8
+
+
+state 5
+
+    6 declaration: RESULT_OF_QUERY . WORD SC
+
+    WORD  shift, and go to state 9
+
+
+state 6
+
+    3 declarations: declarations declaration .
+
+    $default  reduce using rule 3 (declarations)
+
+
+state 7
+
+    1 program: declarations commands .
+    8 commands: commands . command
+
+    WORD  shift, and go to state 10
+    EXEC  shift, and go to state 11
+    IF    shift, and go to state 12
+    FOR   shift, and go to state 13
+
+    $default  reduce using rule 1 (program)
+
+    command         go to state 14
+    assign_command  go to state 15
+
+
+state 8
+
+    4 declaration: QUERY WORD . EQ query SC
+    5            | QUERY WORD . EQ list_of_queries SC
+
+    EQ  shift, and go to state 16
+
+
+state 9
+
+    6 declaration: RESULT_OF_QUERY WORD . SC
+
+    SC  shift, and go to state 17
+
+
+state 10
+
+   13 assign_command: WORD . EQ EXEC WORD
+   14               | WORD . EQ WORD set_operator WORD
+
+    EQ  shift, and go to state 18
+
+
+state 11
+
+    9 command: EXEC . WORD SC
+
+    WORD  shift, and go to state 19
+
+
+state 12
+
+   10 command: IF . condition KW_BEGIN commands KW_END
+
+    EMPTY       shift, and go to state 20
+    NOT_EMPTY   shift, and go to state 21
+    URL_EXISTS  shift, and go to state 22
+
+    condition  go to state 23
+
+
+state 13
+
+   11 command: FOR . WORD IN list_of_queries KW_BEGIN commands KW_END
+
+    WORD  shift, and go to state 24
+
+
+state 14
+
+    8 commands: commands command .
+
+    $default  reduce using rule 8 (commands)
+
+
+state 15
+
+   12 command: assign_command . SC
+
+    SC  shift, and go to state 25
+
+
+state 16
+
+    4 declaration: QUERY WORD EQ . query SC
+    5            | QUERY WORD EQ . list_of_queries SC
+
+    LT   shift, and go to state 26
+    LBR  shift, and go to state 27
+
+    list_of_queries  go to state 28
+    query            go to state 29
+
+
+state 17
+
+    6 declaration: RESULT_OF_QUERY WORD SC .
+
+    $default  reduce using rule 6 (declaration)
+
+
+state 18
+
+   13 assign_command: WORD EQ . EXEC WORD
+   14               | WORD EQ . WORD set_operator WORD
+
+    WORD  shift, and go to state 30
+    EXEC  shift, and go to state 31
+
+
+state 19
+
+    9 command: EXEC WORD . SC
+
+    SC  shift, and go to state 32
+
+
+state 20
+
+   15 condition: EMPTY . LPR WORD RPR
+
+    LPR  shift, and go to state 33
+
+
+state 21
+
+   16 condition: NOT_EMPTY . LPR WORD RPR
+
+    LPR  shift, and go to state 34
+
+
+state 22
+
+   17 condition: URL_EXISTS . LPR WORD COMMA STRING RPR
+
+    LPR  shift, and go to state 35
+
+
+state 23
+
+   10 command: IF condition . KW_BEGIN commands KW_END
+
+    KW_BEGIN  shift, and go to state 36
+
+
+state 24
+
+   11 command: FOR WORD . IN list_of_queries KW_BEGIN commands KW_END
+
+    IN  shift, and go to state 37
+
+
+state 25
+
+   12 command: assign_command SC .
+
+    $default  reduce using rule 12 (command)
+
+
+state 26
+
+   23 query: LT . terms GT
+
+    WORD    shift, and go to state 38
+    STRING  shift, and go to state 39
+    PLUS    shift, and go to state 40
+    MINUS   shift, and go to state 41
+    STAR    shift, and go to state 42
+
+    terms      go to state 43
+    term       go to state 44
+    directive  go to state 45
+
+
+state 27
+
+   18 list_of_queries: LBR . list_items RBR
+
+    WORD  shift, and go to state 46
+    LT    shift, and go to state 26
+
+    list_items  go to state 47
+    list_item   go to state 48
+    query       go to state 49
+
+
+state 28
+
+    5 declaration: QUERY WORD EQ list_of_queries . SC
+
+    SC  shift, and go to state 50
+
+
+state 29
+
+    4 declaration: QUERY WORD EQ query . SC
+
+    SC  shift, and go to state 51
+
+
+state 30
+
+   14 assign_command: WORD EQ WORD . set_operator WORD
+
+    UNION  shift, and go to state 52
+    DIFF   shift, and go to state 53
+    INTER  shift, and go to state 54
+
+    set_operator  go to state 55
+
+
+state 31
+
+   13 assign_command: WORD EQ EXEC . WORD
+
+    WORD  shift, and go to state 56
+
+
+state 32
+
+    9 command: EXEC WORD SC .
+
+    $default  reduce using rule 9 (command)
+
+
+state 33
+
+   15 condition: EMPTY LPR . WORD RPR
+
+    WORD  shift, and go to state 57
+
+
+state 34
+
+   16 condition: NOT_EMPTY LPR . WORD RPR
+
+    WORD  shift, and go to state 58
+
+
+state 35
+
+   17 condition: URL_EXISTS LPR . WORD COMMA STRING RPR
+
+    WORD  shift, and go to state 59
+
+
+state 36
+
+   10 command: IF condition KW_BEGIN . commands KW_END
+
+    $default  reduce using rule 7 (commands)
+
+    commands  go to state 60
+
+
+state 37
+
+   11 command: FOR WORD IN . list_of_queries KW_BEGIN commands KW_END
+
+    LBR  shift, and go to state 27
+
+    list_of_queries  go to state 61
+
+
+state 38
+
+   26 term: WORD .
+   33 directive: WORD . COLON WORD
+   34          | WORD . COLON STRING
+
+    COLON  shift, and go to state 62
+
+    $default  reduce using rule 26 (term)
+
+
+state 39
+
+   27 term: STRING .
+
+    $default  reduce using rule 27 (term)
+
+
+state 40
+
+   29 term: PLUS . term
+
+    WORD    shift, and go to state 38
+    STRING  shift, and go to state 39
+    PLUS    shift, and go to state 40
+    MINUS   shift, and go to state 41
+    STAR    shift, and go to state 42
+
+    term       go to state 63
+    directive  go to state 45
+
+
+state 41
+
+   30 term: MINUS . term
+
+    WORD    shift, and go to state 38
+    STRING  shift, and go to state 39
+    PLUS    shift, and go to state 40
+    MINUS   shift, and go to state 41
+    STAR    shift, and go to state 42
+
+    term       go to state 64
+    directive  go to state 45
+
+
+state 42
+
+   31 term: STAR . term
+
+    WORD    shift, and go to state 38
+    STRING  shift, and go to state 39
+    PLUS    shift, and go to state 40
+    MINUS   shift, and go to state 41
+    STAR    shift, and go to state 42
+
+    term       go to state 65
+    directive  go to state 45
+
+
+state 43
+
+   23 query: LT terms . GT
+   25 terms: terms . term
+
+    WORD    shift, and go to state 38
+    STRING  shift, and go to state 39
+    PLUS    shift, and go to state 40
+    MINUS   shift, and go to state 41
+    STAR    shift, and go to state 42
+    GT      shift, and go to state 66
+
+    term       go to state 67
+    directive  go to state 45
+
+
+state 44
+
+   24 terms: term .
+   32 term: term . PIPE term
+
+    PIPE  shift, and go to state 68
+
+    $default  reduce using rule 24 (terms)
+
+
+state 45
+
+   28 term: directive .
+
+    $default  reduce using rule 28 (term)
+
+
+state 46
+
+   22 list_item: WORD .
+
+    $default  reduce using rule 22 (list_item)
+
+
+state 47
+
+   18 list_of_queries: LBR list_items . RBR
+   20 list_items: list_items . COMMA list_item
+
+    RBR    shift, and go to state 69
+    COMMA  shift, and go to state 70
+
+
+state 48
+
+   19 list_items: list_item .
+
+    $default  reduce using rule 19 (list_items)
+
+
+state 49
+
+   21 list_item: query .
+
+    $default  reduce using rule 21 (list_item)
+
+
+state 50
+
+    5 declaration: QUERY WORD EQ list_of_queries SC .
+
+    $default  reduce using rule 5 (declaration)
+
+
+state 51
+
+    4 declaration: QUERY WORD EQ query SC .
+
+    $default  reduce using rule 4 (declaration)
+
+
+state 52
+
+   35 set_operator: UNION .
+
+    $default  reduce using rule 35 (set_operator)
+
+
+state 53
+
+   36 set_operator: DIFF .
+
+    $default  reduce using rule 36 (set_operator)
+
+
+state 54
+
+   37 set_operator: INTER .
+
+    $default  reduce using rule 37 (set_operator)
+
+
+state 55
+
+   14 assign_command: WORD EQ WORD set_operator . WORD
+
+    WORD  shift, and go to state 71
+
+
+state 56
+
+   13 assign_command: WORD EQ EXEC WORD .
+
+    $default  reduce using rule 13 (assign_command)
+
+
+state 57
+
+   15 condition: EMPTY LPR WORD . RPR
+
+    RPR  shift, and go to state 72
+
+
+state 58
+
+   16 condition: NOT_EMPTY LPR WORD . RPR
+
+    RPR  shift, and go to state 73
+
+
+state 59
+
+   17 condition: URL_EXISTS LPR WORD . COMMA STRING RPR
+
+    COMMA  shift, and go to state 74
+
+
+state 60
+
+    8 commands: commands . command
+   10 command: IF condition KW_BEGIN commands . KW_END
+
+    WORD    shift, and go to state 10
+    EXEC    shift, and go to state 11
+    IF      shift, and go to state 12
+    FOR     shift, and go to state 13
+    KW_END  shift, and go to state 75
+
+    command         go to state 14
+    assign_command  go to state 15
+
+
+state 61
+
+   11 command: FOR WORD IN list_of_queries . KW_BEGIN commands KW_END
+
+    KW_BEGIN  shift, and go to state 76
+
+
+state 62
+
+   33 directive: WORD COLON . WORD
+   34          | WORD COLON . STRING
+
+    WORD    shift, and go to state 77
+    STRING  shift, and go to state 78
+
+
+state 63
+
+   29 term: PLUS term .
+   32     | term . PIPE term
+
+    $default  reduce using rule 29 (term)
+
+
+state 64
+
+   30 term: MINUS term .
+   32     | term . PIPE term
+
+    $default  reduce using rule 30 (term)
+
+
+state 65
+
+   31 term: STAR term .
+   32     | term . PIPE term
+
+    $default  reduce using rule 31 (term)
+
+
+state 66
+
+   23 query: LT terms GT .
+
+    $default  reduce using rule 23 (query)
+
+
+state 67
+
+   25 terms: terms term .
+   32 term: term . PIPE term
+
+    PIPE  shift, and go to state 68
+
+    $default  reduce using rule 25 (terms)
+
+
+state 68
+
+   32 term: term PIPE . term
+
+    WORD    shift, and go to state 38
+    STRING  shift, and go to state 39
+    PLUS    shift, and go to state 40
+    MINUS   shift, and go to state 41
+    STAR    shift, and go to state 42
+
+    term       go to state 79
+    directive  go to state 45
+
+
+state 69
+
+   18 list_of_queries: LBR list_items RBR .
+
+    $default  reduce using rule 18 (list_of_queries)
+
+
+state 70
+
+   20 list_items: list_items COMMA . list_item
+
+    WORD  shift, and go to state 46
+    LT    shift, and go to state 26
+
+    list_item  go to state 80
+    query      go to state 49
+
+
+state 71
+
+   14 assign_command: WORD EQ WORD set_operator WORD .
+
+    $default  reduce using rule 14 (assign_command)
+
+
+state 72
+
+   15 condition: EMPTY LPR WORD RPR .
+
+    $default  reduce using rule 15 (condition)
+
+
+state 73
+
+   16 condition: NOT_EMPTY LPR WORD RPR .
+
+    $default  reduce using rule 16 (condition)
+
+
+state 74
+
+   17 condition: URL_EXISTS LPR WORD COMMA . STRING RPR
+
+    STRING  shift, and go to state 81
+
+
+state 75
+
+   10 command: IF condition KW_BEGIN commands KW_END .
+
+    $default  reduce using rule 10 (command)
+
+
+state 76
+
+   11 command: FOR WORD IN list_of_queries KW_BEGIN . commands KW_END
+
+    $default  reduce using rule 7 (commands)
+
+    commands  go to state 82
+
+
+state 77
+
+   33 directive: WORD COLON WORD .
+
+    $default  reduce using rule 33 (directive)
+
+
+state 78
+
+   34 directive: WORD COLON STRING .
+
+    $default  reduce using rule 34 (directive)
+
+
+state 79
+
+   32 term: term . PIPE term
+   32     | term PIPE term .
+
+    $default  reduce using rule 32 (term)
+
+
+state 80
+
+   20 list_items: list_items COMMA list_item .
+
+    $default  reduce using rule 20 (list_items)
+
+
+state 81
+
+   17 condition: URL_EXISTS LPR WORD COMMA STRING . RPR
+
+    RPR  shift, and go to state 83
+
+
+state 82
+
+    8 commands: commands . command
+   11 command: FOR WORD IN list_of_queries KW_BEGIN commands . KW_END
+
+    WORD    shift, and go to state 10
+    EXEC    shift, and go to state 11
+    IF      shift, and go to state 12
+    FOR     shift, and go to state 13
+    KW_END  shift, and go to state 84
+
+    command         go to state 14
+    assign_command  go to state 15
+
+
+state 83
+
+   17 condition: URL_EXISTS LPR WORD COMMA STRING RPR .
+
+    $default  reduce using rule 17 (condition)
+
+
+state 84
+
+   11 command: FOR WORD IN list_of_queries KW_BEGIN commands KW_END .
+
+    $default  reduce using rule 11 (command)
