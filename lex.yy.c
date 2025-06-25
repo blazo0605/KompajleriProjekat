@@ -911,7 +911,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 82 "scanner.l"
+#line 83 "scanner.l"
 {
     yylval.string = strdup(yytext);
     return WORD;
@@ -919,12 +919,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 88 "scanner.l"
+#line 89 "scanner.l"
 { report_lexical_error("Unexpected character"); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 90 "scanner.l"
+#line 91 "scanner.l"
 ECHO;
 	YY_BREAK
 #line 931 "lex.yy.c"
@@ -1813,6 +1813,6 @@ int main()
 	return 0;
 	}
 #endif
-#line 90 "scanner.l"
+#line 91 "scanner.l"
 
 

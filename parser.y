@@ -152,7 +152,7 @@ term
     | PLUS term  { $$ = create_unary(N_PLUS, $2); }
     | MINUS term { $$ = create_unary(N_MINUS, $2); }
     | STAR term  { $$ = create_unary(N_STAR, $2); }
-    | LPR or_expr RPR
+    | LPR or_expr RPR {$$ = $2}
     ;
 
 directive

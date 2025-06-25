@@ -491,7 +491,7 @@ static const yytype_uint8 yyrline[] =
        0,    45,    45,    54,    55,    60,    62,    64,    70,    71,
       76,    78,    80,    82,    87,    90,    93,    96,   102,   104,
      106,   111,   116,   118,   123,   125,   130,   135,   137,   142,
-     144,   149,   150,   151,   152,   153,   154,   155,   160,   162
+     144,   149,   150,   151,   152,   153,   154,   155,   159,   161
 };
 #endif
 
@@ -1696,21 +1696,21 @@ yyreduce:
   case 37:
 
 /* Line 1455 of yacc.c  */
-#line 156 "parser.y"
-    { (yyval.node) = (yyvsp[(2) - (3)].node); ;}
+#line 155 "parser.y"
+    {(yyval.node) = (yyvsp[(2) - (3)].node);}
     break;
 
   case 38:
 
 /* Line 1455 of yacc.c  */
-#line 161 "parser.y"
+#line 160 "parser.y"
     { (yyval.node) = create_directive((yyvsp[(1) - (3)].string), (yyvsp[(3) - (3)].string)); ;}
     break;
 
   case 39:
 
 /* Line 1455 of yacc.c  */
-#line 163 "parser.y"
+#line 162 "parser.y"
     { (yyval.node) = create_directive((yyvsp[(1) - (3)].string), (yyvsp[(3) - (3)].string)); ;}
     break;
 
@@ -1929,7 +1929,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 166 "parser.y"
+#line 165 "parser.y"
 
 
 void yyerror(const char *s) {
@@ -1938,7 +1938,7 @@ void yyerror(const char *s) {
 
 int main(void) {
     if (yyparse() == 0) {
-        /* astRoot already printed in program action */
+        
     }
     return 0;
 }
