@@ -628,7 +628,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 19 "scanner.l"
+#line 21 "scanner.l"
 
 
 #line 635 "lex.yy.c"
@@ -724,46 +724,46 @@ do_action:	/* This label is used only to access EOF actions. */
 	{ /* beginning of action switch */
 case 1:
 YY_RULE_SETUP
-#line 21 "scanner.l"
+#line 23 "scanner.l"
 { }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 23 "scanner.l"
+#line 25 "scanner.l"
 { BEGIN(LINE_COMMENT); }  
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 25 "scanner.l"
+#line 27 "scanner.l"
 { BEGIN(MULTILINE_COMMENT); }
 	YY_BREAK
 
 case 4:
 YY_RULE_SETUP
-#line 29 "scanner.l"
+#line 31 "scanner.l"
 { BEGIN(INITIAL); }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 30 "scanner.l"
+#line 32 "scanner.l"
 {}
 	YY_BREAK
 
 
 case 6:
 YY_RULE_SETUP
-#line 34 "scanner.l"
+#line 36 "scanner.l"
 { BEGIN(INITIAL); }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 35 "scanner.l"
+#line 37 "scanner.l"
 {}
 	YY_BREAK
 
 case 8:
 YY_RULE_SETUP
-#line 38 "scanner.l"
+#line 40 "scanner.l"
 {
     yylval.string = strdup(yytext);
     return STRING;
@@ -771,147 +771,147 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 44 "scanner.l"
+#line 46 "scanner.l"
 { return QUERY; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 45 "scanner.l"
+#line 47 "scanner.l"
 { return RESULT_OF_QUERY; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 46 "scanner.l"
+#line 48 "scanner.l"
 { return EXEC; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 47 "scanner.l"
+#line 49 "scanner.l"
 { return IF; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 48 "scanner.l"
+#line 50 "scanner.l"
 { return FOR; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 49 "scanner.l"
+#line 51 "scanner.l"
 { return IN; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 50 "scanner.l"
+#line 52 "scanner.l"
 { return KW_BEGIN; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 51 "scanner.l"
+#line 53 "scanner.l"
 { return KW_END; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 52 "scanner.l"
+#line 54 "scanner.l"
 { return EMPTY; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 53 "scanner.l"
+#line 55 "scanner.l"
 { return NOT_EMPTY; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 54 "scanner.l"
+#line 56 "scanner.l"
 { return URL_EXISTS; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 57 "scanner.l"
+#line 59 "scanner.l"
 { return UNION; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 58 "scanner.l"
+#line 60 "scanner.l"
 { return DIFF; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 59 "scanner.l"
+#line 61 "scanner.l"
 { return INTER; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 62 "scanner.l"
+#line 64 "scanner.l"
 { return PLUS; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 63 "scanner.l"
+#line 65 "scanner.l"
 { return MINUS; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 64 "scanner.l"
+#line 66 "scanner.l"
 { return STAR; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 65 "scanner.l"
+#line 67 "scanner.l"
 { return PIPE; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 68 "scanner.l"
+#line 70 "scanner.l"
 { return LT; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 69 "scanner.l"
+#line 71 "scanner.l"
 { return GT; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 70 "scanner.l"
+#line 72 "scanner.l"
 { return LBR; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 71 "scanner.l"
+#line 73 "scanner.l"
 { return RBR; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 72 "scanner.l"
+#line 74 "scanner.l"
 { return LPR; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 73 "scanner.l"
+#line 75 "scanner.l"
 { return RPR; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 74 "scanner.l"
+#line 76 "scanner.l"
 { return COMMA; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 75 "scanner.l"
+#line 77 "scanner.l"
 { return SC; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 76 "scanner.l"
+#line 78 "scanner.l"
 { return EQ; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 77 "scanner.l"
+#line 79 "scanner.l"
 { return COLON; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 80 "scanner.l"
+#line 82 "scanner.l"
 {
     yylval.string = strdup(yytext);
     return WORD;
@@ -919,12 +919,12 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 86 "scanner.l"
+#line 88 "scanner.l"
 { report_lexical_error("Unexpected character"); }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 88 "scanner.l"
+#line 90 "scanner.l"
 ECHO;
 	YY_BREAK
 #line 931 "lex.yy.c"
@@ -1813,6 +1813,6 @@ int main()
 	return 0;
 	}
 #endif
-#line 88 "scanner.l"
+#line 90 "scanner.l"
 
 

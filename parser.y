@@ -50,7 +50,7 @@ program
     ;
 
 declarations
-    : /* empty */
+    : 
         { $$ = NULL; }
     | declarations declaration
         { $$ = append($1, $2); }
@@ -66,7 +66,7 @@ declaration
     ;
 
 commands
-    : /* empty */
+    : 
         { $$ = NULL; }
     | commands command
         { $$ = append($1, $2); }
@@ -152,6 +152,7 @@ term
     | PLUS term  { $$ = create_unary(N_PLUS, $2); }
     | MINUS term { $$ = create_unary(N_MINUS, $2); }
     | STAR term  { $$ = create_unary(N_STAR, $2); }
+    | LPR or_expr RPR
     ;
 
 directive
@@ -169,7 +170,7 @@ void yyerror(const char *s) {
 
 int main(void) {
     if (yyparse() == 0) {
-        /* astRoot already printed in program action */
+        
     }
     return 0;
 }

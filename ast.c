@@ -1,4 +1,3 @@
-// ast.c
 #include "ast.h"
 
 Node *astRoot = NULL;
@@ -21,7 +20,7 @@ void append_node(Node **list, Node *node) {
     }
 }
 
-// Constructors
+
 
 Node *create_program(Node *decls, Node *cmds) {
     Node *n = alloc_node(N_PROGRAM);
@@ -104,7 +103,7 @@ Node *create_unary(NodeType op, Node *child) {
     return n;
 }
 
-// ** Novo: set-operations **
+
 Node *create_union_op(Node *l, Node *r) {
     Node *n = alloc_node(N_UNION_OP);
     n->binary.left  = l;
@@ -165,25 +164,25 @@ Node *create_url_exists_cond(char *name, char *url) {
 }
 
 
-// Recursive print
+
 
 static void print_ast_rec(Node *n, int lvl);
 static void print_list(Node *list, int lvl);
 static void flatten_and_print(Node *n, int lvl);
 
-// Indentacija
+
 static void print_indent(int lvl) {
     for (int i = 0; i < lvl; i++) printf("   ");
 }
 
-// Ispis jednostruke liste čvorova
+
 static void print_list(Node *list, int lvl) {
     for (Node *p = list; p; p = p->next) {
         print_ast_rec(p, lvl);
     }
 }
 
-// Rekurzivni štampač s „spljoštavanjem” Juxtaposition
+
 static void print_ast_rec(Node *n, int lvl) {
     if (!n) return;
 
@@ -255,7 +254,6 @@ static void print_ast_rec(Node *n, int lvl) {
 
     case N_JUXTAPOSITION:
         print_indent(lvl); printf("Juxtaposition\n");
-        // Ovde „spljoštavamo” cijelu binarnu stablu
         flatten_and_print(n, lvl+1);
         return;
 
@@ -325,18 +323,17 @@ static void print_ast_rec(Node *n, int lvl) {
     }
 }
 
-// Pomoćna funkcija: flatten & štampa svako "leaf" dijete
+
 static void flatten_and_print(Node *n, int lvl) {
     if (n->type == N_JUXTAPOSITION) {
         flatten_and_print(n->binary.left, lvl);
         flatten_and_print(n->binary.right, lvl);
     } else {
-        // ako nije više juxta, štampamo kao normalan čvor
         print_ast_rec(n, lvl);
     }
 }
 
-// Ulazna tačka za ispis AST-a
+
 void print_ast(Node *root) {
     print_ast_rec(root, 0);
 }

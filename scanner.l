@@ -79,6 +79,7 @@ extern int yylineno;
 ":"                     { return COLON; }
 
 
+
 [a-zA-Z_][a-zA-Z0-9_]*   {
     yylval.string = strdup(yytext);
     return WORD;
